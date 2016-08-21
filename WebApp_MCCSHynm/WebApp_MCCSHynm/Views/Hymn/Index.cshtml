@@ -1,0 +1,52 @@
+﻿@model IEnumerable<WebApp_MCCSHynm.Models.Hymn>
+
+
+@{
+    ViewBag.Title = "All Hymns";
+}
+
+
+
+<h2>Hymns</h2>
+
+<p>
+    @*@Html.ActionLink("Add New Hymn", "Create")*@
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HynmNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HynmVerse1)
+        </th>
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HynmNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HynmVerse1)
+            </td>
+
+            <td>
+                <h5>@Html.ActionLink("Details", "Details", new { id = item.Id })</h5>
+ 
+            </td>
+        </tr>
+        }
+
+</table>
+

@@ -1,0 +1,116 @@
+﻿@model WebApp_MCCSHynm.Models.Hymn
+
+
+<div>
+    <div id="titlevernum"><h4>@Html.DisplayFor(model => model.Title) <span id="versenum"></span></h4></div>
+    <div id="hymverse"></div>
+    <div id="hymnchorus"></div>
+    <input type="button" id="prevbtn" value="<" /> <input type="button" id="nextbtn" value=">" />
+</div>
+
+<br />
+<hr />
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<script>
+    var hymnverses = [];
+    var verse1 = "@Html.DisplayFor(model => model.HynmVerse1)";
+    var verse2 = "@Html.DisplayFor(model => model.HynmVerse2)";
+    var verse3 = "@Html.DisplayFor(model => model.HymnVerse3)";
+    var verse4 = "@Html.DisplayFor(model => model.HymnVerse4)";
+    var verse5 = "@Html.DisplayFor(model => model.HymnVerse5)";
+    var verseChorus = "@Html.DisplayFor(model => model.HymnChorus)";
+    var verseClosing = "@Html.DisplayFor(model => model.HynmClosing)";
+
+    hymnverses.push(verse1, verse2, verse3, verse4, verse5, verseChorus, verseClosing);
+
+    jQuery(document).ready(function () {
+        console.log(hymnverses);
+        $('#versenum').html(': 1');
+        $('#hymverse').text(verse1);
+        $('#hymnchorus').text(verseChorus);
+        $('#prevbtn').prop('disabled', true);
+        $('#nextbtn').prop('disabled', false);
+        $('.navbar-fixed-top').css('display', 'none');
+        $('.navbar-fixed-top').mouseover(function () {
+            $(this).css('display', 'block');
+        });
+
+    });
+    var verseCount = 1;
+    $('#nextbtn').on('click', function () {
+        verseCount++;
+        RenderVerse(verseCount);
+    });
+
+    $('#prevbtn').on('click', function () {
+        verseCount--;
+        RenderVerse(verseCount);
+
+    });
+
+    function RenderVerse(verseCount) {
+        if (verseCount === 1 && verse1) {
+            $('#hymverse').html(verse1);
+            $('#hymnchorus').html(verseChorus);
+            $('#versenum').html(': 1');
+            $('#prevbtn').prop('disabled', true);
+            $('#nextbtn').prop('disabled', false);
+
+        }
+        if (verseCount === 2 && verse2) {
+            $('#prevbtn').prop('disabled', false);
+            $('#versenum').html(': 2');
+            $('#hymverse').html(verse2);
+            $('#hymnchorus').html(verseChorus);
+        }
+        if (verseCount === 3 && verse3) {
+            $('#versenum').html(': 3');
+            $('#hymverse').html(verse3);
+            $('#hymnchorus').html(verseChorus);
+        }
+        if (verseCount === 4 && verse4) {
+            $('#versenum').html(': 4');
+            $('#hymverse').html(verse4);
+            $('#hymnchorus').html(verseChorus);
+        }
+        if (verseCount === 5 && verse5) {
+            $('#versenum').html(': 5');
+            $('#hymverse').html(verse5);
+            $('#hymnchorus').html(verseChorus);
+        }
+        if (verseCount === 6 && verseClosing) {
+            $('#versenum').html(': 6');
+            $('#hymverse').html(verseClosing);
+            $('#hymnchorus').html(verseChorus);
+        }
+        if (verseCount >= 6) $('#nextbtn').prop('disabled', true);
+
+    }
+
+</script>
+
+<style>
+    .presentationSize, #hymverse, #hymnchorus {
+        font-size: 30px;
+        padding: 10px;
+    }
+
+    #hymnchorus {
+        padding-left: 30px;
+    }
+
+    #nextbtn {
+        float: right;
+    }
+
+    .navbar-header {
+        display: none;
+    }
+
+        .navbar-header:hover {
+            display: block;
+        }
+</style>
